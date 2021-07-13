@@ -1,23 +1,26 @@
-import React, { useEffect } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
-import { ISinglePost } from '../store/interfaces';
-import { fetchPost } from '../store/postSlice';
+import React, {FC} from 'react';
+import {useSelector} from 'react-redux';
+import {IPost, IState} from '../store/interfaces';
+import {useRouter} from "next/router";
 
-const Post = (props: any) => {
-   // const dispatch = useDispatch();
-    //const postStatus = useSelector((state: IState) => state.posts.status);
-    //const post: ISinglePost = useSelector((state: IState) => state.posts.posts);
 
-    useEffect(() => {
-        //String(postStatus) === 'idle' && dispatch(fetchPost());
-        console.log(props)
-    }, []);
-    
+const Post: FC = () => {
+    const router = useRouter();
+    const {id} = router.query;
+
+    const post: IPost | undefined = useSelector((state: IState) => state.posts.posts.find(i => i.id === Number(id)));
+
     return (
         <div>
-            Post
+            <div>{post?.title}</div>
+            <div>{post?.body}</div>
+            <ul>
+                {
+                    post?.comments.map(comment => <li>{comment.body}</li>)
+                }
+            </ul>
         </div>
     );
-};
+}
 
-    export default Post;
+export default Post;

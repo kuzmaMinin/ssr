@@ -1,6 +1,6 @@
 import {createAsyncThunk, createSlice, SliceCaseReducers} from "@reduxjs/toolkit";
 import axios from "axios";
-import {IInitialStatePosts, IState } from "./interfaces";
+import {IInitialStatePosts, IPost, IState} from "./interfaces";
 
 const initialState: IInitialStatePosts = {
     posts: [],
@@ -8,20 +8,53 @@ const initialState: IInitialStatePosts = {
     error: null
 }
 
-export const fetchPosts = createAsyncThunk('posts/fetchPosts',
-    async () => {
-        const response = await axios
+export const fetchPosts = createAsyncThunk('posts/fetchPosts', async () => {
+    try {
+        const posts = await axios
             .get('https://simple-blog-api.crew.red/posts')
             .then(res => res.data);
-        console.log(response);
-        
-        return response;
-    });
+
+        return await Promise.all(
+            posts.map(async (post: IPost) => {
+                return await axios
+                    .get(`https://simple-blog-api.crew.red/posts/${post.id}?_embed=comments`)
+                    .then(res => res.data);
+            })
+        ).then(res => res);
+
+    } catch (e) {
+        console.log(e);
+    }
+});
+
+export const addPost = createAsyncThunk('posts/addPost', async (data, thunkAPI) => {
+    console.log(thunkAPI, 'api');
+
+    try {
+        const result = await axios
+            .post('https://simple-blog-api.crew.red/posts', data)
+            .then(res => res.data)
+            .then(item => {
+                console.log(item);
+                thunkAPI.dispatch(addPostItem(item));
+                return item;
+            });
+        return result;
+    } catch (err) {
+        console.log(err);
+    }
+});
+
 
 export const postsSlice = createSlice<IInitialStatePosts, SliceCaseReducers<any>, string>({
     name: 'posts',
     initialState,
-    reducers: {},
+    reducers: {
+        addPostItem: (state, action) => {
+            console.log(state.posts);
+            state.posts.push(action.payload)
+        }
+    },
     extraReducers: builder => {
         return builder.addCase(fetchPosts.pending, (state) => {
             state.status = 'loading';
@@ -40,4 +73,8 @@ export const postsSlice = createSlice<IInitialStatePosts, SliceCaseReducers<any>
 
 export default postsSlice.reducer;
 
-export const selectAllPosts = (state: IState | any) => state.posts.posts;
+export const {addPostItem} = postsSlice.actions;
+
+export const selectAllPosts = (state: IState) => state.posts.posts;
+
+
