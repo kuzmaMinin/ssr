@@ -1,8 +1,8 @@
 import {createAsyncThunk, createSlice, SliceCaseReducers} from "@reduxjs/toolkit";
 import axios from "axios";
-import {IInitialState, IState } from "./interfaces";
+import {IInitialStatePosts, IState } from "./interfaces";
 
-const initialState: IInitialState = {
+const initialState: IInitialStatePosts = {
     posts: [],
     status: 'idle',
     error: null
@@ -18,7 +18,7 @@ export const fetchPosts = createAsyncThunk('posts/fetchPosts',
         return response;
     });
 
-export const postsSlice = createSlice<IInitialState, SliceCaseReducers<any>, string>({
+export const postsSlice = createSlice<IInitialStatePosts, SliceCaseReducers<any>, string>({
     name: 'posts',
     initialState,
     reducers: {},
