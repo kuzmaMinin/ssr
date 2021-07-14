@@ -1,7 +1,6 @@
 import React, {FC, useState} from 'react';
 import {addPost} from "../store/postsSlice";
 import {useDispatch} from "react-redux";
-import styled from "styled-components";
 import {Button, Wrapper, Input, Textarea} from '../../styles/components';
 import Router from 'next/router'
 
@@ -21,7 +20,6 @@ const NewPost: FC = () => {
     function handleAddPost() {
         const data = {title, body};
 
-        // @ts-ignore
         dispatch(addPost(data));
         Router.push('/');
 

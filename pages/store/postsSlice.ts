@@ -1,4 +1,4 @@
-import {createAsyncThunk, createSlice, SliceCaseReducers} from "@reduxjs/toolkit";
+import {createAsyncThunk, createSlice, Reducer, SliceCaseReducers} from "@reduxjs/toolkit";
 import axios from "axios";
 import {IInitialStatePosts, IPost, IState} from "../../interfaces";
 
@@ -27,19 +27,17 @@ export const fetchPosts = createAsyncThunk('posts/fetchPosts', async () => {
     }
 });
 
-export const addPost = createAsyncThunk('posts/addPost', async (data, thunkAPI) => {
+export const addPost = createAsyncThunk('posts/addPost', async (data: { title: string, body: string }, thunkAPI ) => {
     console.log(thunkAPI, 'api');
 
     try {
-        const result = await axios
+        return await axios
             .post('https://simple-blog-api.crew.red/posts', data)
             .then(res => res.data)
             .then(item => {
-                console.log(item);
                 thunkAPI.dispatch(addPostItem(item));
                 return item;
             });
-        return result;
     } catch (err) {
         console.log(err);
     }
@@ -62,7 +60,7 @@ export const postsSlice = createSlice<IInitialStatePosts, SliceCaseReducers<any>
         }),
             builder.addCase(fetchPosts.fulfilled, (state, action) => {
                 state.status = 'succeeded';
-                state.posts = action.payload;
+                state.posts = state.posts.concat(action.payload);
             }),
             builder.addCase(fetchPosts.rejected, (state, action) => {
                 state.status = 'failed';
@@ -71,7 +69,7 @@ export const postsSlice = createSlice<IInitialStatePosts, SliceCaseReducers<any>
     }
 });
 
-export default postsSlice.reducer;
+export default postsSlice.reducer as Reducer<typeof initialState>;
 
 export const {addPostItem} = postsSlice.actions;
 

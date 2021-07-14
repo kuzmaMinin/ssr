@@ -4,7 +4,6 @@ import {IPost, IState} from '../interfaces';
 import {fetchPosts, selectValidLastPosts} from './store/postsSlice';
 import Post from '../components/Post';
 import Link from 'next/link';
-import styled from "styled-components";
 import {Container, List} from '../styles/components';
 import Preloader from '../components/Preloader';
 
@@ -25,7 +24,7 @@ export default function Posts() {
                 posts.length ?
                     <List>
                         {
-                            posts.map(post => <Post key={post.id} post={post}/>)
+                            posts.map(post => <Post key={post.id} {...post}/>)
                         }
                     </List>:
                     <Preloader/>

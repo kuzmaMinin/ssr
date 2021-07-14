@@ -1,8 +1,5 @@
 import styled from "styled-components";
 
-export const Comment = styled.li`
-        
-    `
 export const Comments = styled.ul`
         list-style-type: none;
     `
@@ -43,8 +40,6 @@ export const Textarea = styled.textarea`
             outline: none;
             border: 2px solid #00bfff;
         }
-  
-        
     `;
 
 export const Wrapper = styled.div`

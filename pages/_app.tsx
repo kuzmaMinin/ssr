@@ -1,18 +1,17 @@
+import React from "react";
 import '../styles/globals.css';
-import type {AppProps} from 'next/app';
 import {Provider} from 'react-redux';
-import {store, wrapper} from './store/store';
-import withRedux from 'next-redux-wrapper';
-//import {makeStore} from './store/store';
+import store from './store/store';
+import {MyAppProps} from '../interfaces';
 
-function MyApp({Component, pageProps}: AppProps) {
+export default function MyApp({Component, pageProps}: MyAppProps) {
+    const Layout = Component.Layout || React.Fragment;
+
     return (
         <Provider store={store}>
-            <Component {...pageProps} />
+            <Layout>
+                <Component {...pageProps} />
+            </Layout>
         </Provider>
-    )
+    );
 }
-
-//export default withRedux(makeStore, {debug: false})(MyApp);
-
-export default wrapper.withRedux(MyApp);
