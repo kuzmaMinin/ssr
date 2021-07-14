@@ -1,9 +1,11 @@
-import {configureStore} from "@reduxjs/toolkit";
-import postsReducer from '../store/postsSlice';
+import {configureStore, EnhancedStore} from "@reduxjs/toolkit";
+import { MakeStore } from "next-redux-wrapper";
+import { rootReducer, RootState } from "./reducers"
 
-export default configureStore({
-        reducer: {
-            posts: postsReducer,
-        }
+export const store = configureStore({
+        reducer: rootReducer
     }
 );
+
+// @ts-ignore
+export const makeStore: MakeStore = (_?: RootState): EnhancedStore => store;
