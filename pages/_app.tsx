@@ -1,17 +1,10 @@
 import React from "react";
 import '../styles/globals.css';
-import {Provider} from 'react-redux';
-import store from '../store/store';
+import {wrapper} from '../store/store';
 import {MyAppProps} from '../interfaces';
 
-export default function MyApp({Component, pageProps}: MyAppProps) {
-    const Layout = Component.Layout || React.Fragment;
+const MyApp = ({Component, pageProps}: MyAppProps) => (
+    <Component {...pageProps} />
+);
 
-    return (
-        <Provider store={store}>
-            <Layout>
-                <Component {...pageProps} />
-            </Layout>
-        </Provider>
-    );
-}
+export default wrapper.withRedux(MyApp);

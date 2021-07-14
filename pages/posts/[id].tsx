@@ -12,7 +12,7 @@ const Post: FC = () => {
     const router = useRouter();
     const {id} = router.query;
 
-    const post: IPost = useSelector((state: IState) => state.posts.posts.find((i: IPost) => i.id === Number(id))) as IPost;
+    const post: IPost = useSelector((state: IState) => state.index.posts.find((i: IPost) => i.id === Number(id))) as IPost;
 
     return (
         <Container>

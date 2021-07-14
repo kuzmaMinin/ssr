@@ -1,5 +1,5 @@
 import React, {FC, useState} from 'react';
-import {addPost} from "../../store/postsSlice";
+import {addPost} from "../../store/indexSlice";
 import {useDispatch} from "react-redux";
 import {Button, Wrapper, Input, Textarea} from '../../styles/components';
 import Router from 'next/router'

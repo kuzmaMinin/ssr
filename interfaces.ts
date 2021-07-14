@@ -9,7 +9,7 @@ export interface IInitialStatePosts {
 }
 
 export interface IState {
-    posts: {
+    index: {
         posts: IPost[];
         status: 'loading' | 'succeeded' | 'failed';
         error: string;
