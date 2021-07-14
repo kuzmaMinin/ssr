@@ -1,9 +1,9 @@
 import '../styles/globals.css';
 import type {AppProps} from 'next/app';
 import {Provider} from 'react-redux';
-import {store} from './store/store';
+import {store, wrapper} from './store/store';
 import withRedux from 'next-redux-wrapper';
-import {makeStore} from './store/store';
+//import {makeStore} from './store/store';
 
 function MyApp({Component, pageProps}: AppProps) {
     return (
@@ -13,4 +13,6 @@ function MyApp({Component, pageProps}: AppProps) {
     )
 }
 
-export default withRedux(makeStore, {debug: false})(MyApp);
+//export default withRedux(makeStore, {debug: false})(MyApp);
+
+export default wrapper.withRedux(MyApp);

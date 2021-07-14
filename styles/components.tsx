@@ -13,10 +13,15 @@ export const Input = styled.input`
         border: 2px solid #ccc;
         border-radius: 10px;
         background-color: #f8f8f8;
-        font-size: 14px;
+        font-size: 16px;
+  
+        ::-webkit-input-placeholder {
+          font-size: 16px;
+        }
         
         :focus {
             outline: none;
+            border: 2px solid #00bfff;
         }
     `;
 
@@ -28,11 +33,18 @@ export const Textarea = styled.textarea`
         border: 2px solid #ccc;
         background-color: #f8f8f8;
         resize: none;
-        font-size: 14px;
+        font-size: 16px;
+  
+        ::-webkit-input-placeholder {
+           font-size: 16px;
+        }
         
         :focus {
             outline: none;
+            border: 2px solid #00bfff;
         }
+  
+        
     `;
 
 export const Wrapper = styled.div`
@@ -57,14 +69,15 @@ export const Button = styled.button`
         border: none;
         border-radius: 10px;
         outline: none;
-        font-size: 14px;
+        font-size: 16px;
         
         :hover {
             cursor: pointer;
+            background: #00bfff90;
         }
         
         :active {
-            background: #00bfff80;
+            background: #00bfff70;
         }
     `;
 
@@ -75,11 +88,15 @@ export const Title = styled.div`
     `;
 
 export const Container = styled.div`
+        display: flex;;
+        flex-direction: column;
         margin: 0 auto;
         padding: 30px 150px;
         
         a {
-            display: block
+            width: 200px;
+            text-align: center;
+            display: block;
             margin-top: 30px;
             padding: 15px 15px;
             background: #00bfff;
@@ -87,7 +104,7 @@ export const Container = styled.div`
             border: none;
             border-radius: 10px;
             outline: none;
-            font-size: 14px;
+            font-size: 16px;
             
             :hover {
                 cursor: pointer;
@@ -99,10 +116,20 @@ export const Container = styled.div`
     `;
 
 export const Item = styled.li`
-        padding: 20px;
+        width: 70%;
+        padding: 25px;
         border-radius: 15px;
-        box-shadow: 0 14px 28px rgba(0,0,0,0.25), 0 10px 10px rgba(0,0,0,0.22);  
+        border: 1px solid black;
+        :hover {
+          cursor: pointer;
+        }
     `;
+
+export const CommentItem = styled.div`
+  margin: 0 auto;
+  padding: 20px;
+  border-bottom: 1px solid black;
+`;
 
 export const List = styled.div`
         margin-top: 50px;

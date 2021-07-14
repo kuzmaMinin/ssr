@@ -1,6 +1,6 @@
 import {createAsyncThunk, createSlice, SliceCaseReducers} from "@reduxjs/toolkit";
 import axios from "axios";
-import {IInitialStatePosts, IPost, IState} from "./interfaces";
+import {IInitialStatePosts, IPost, IState} from "../../interfaces";
 
 const initialState: IInitialStatePosts = {
     posts: [],
@@ -52,7 +52,7 @@ export const postsSlice = createSlice<IInitialStatePosts, SliceCaseReducers<any>
     reducers: {
         addPostItem: (state, action) => {
             console.log(state.posts);
-            state.posts.push(action.payload)
+            state.posts.push(action.payload);
         }
     },
     extraReducers: builder => {
@@ -62,7 +62,7 @@ export const postsSlice = createSlice<IInitialStatePosts, SliceCaseReducers<any>
         }),
             builder.addCase(fetchPosts.fulfilled, (state, action) => {
                 state.status = 'succeeded';
-                state.posts = state.posts.concat(action.payload);
+                state.posts = action.payload;
             }),
             builder.addCase(fetchPosts.rejected, (state, action) => {
                 state.status = 'failed';
@@ -76,5 +76,6 @@ export default postsSlice.reducer;
 export const {addPostItem} = postsSlice.actions;
 
 export const selectAllPosts = (state: IState) => state.posts.posts;
+export const selectValidLastPosts = (state: IState) => state.posts.posts.filter(p => p.body && p.title).slice(-10);
 
 
