@@ -1,7 +1,7 @@
 import React, {useEffect} from 'react';
 import {useDispatch, useSelector} from 'react-redux';
 import {IPost, IState} from '../interfaces';
-import {fetchPosts, selectValidLastPosts} from './store/postsSlice';
+import {fetchPosts, selectValidLastPosts} from '../store/postsSlice';
 import Post from '../components/Post';
 import Link from 'next/link';
 import {Container, List} from '../styles/components';

@@ -1,6 +1,6 @@
 import {createAsyncThunk, createSlice, Reducer, SliceCaseReducers} from "@reduxjs/toolkit";
 import axios from "axios";
-import {IInitialStatePosts, IPost, IState} from "../../interfaces";
+import {IInitialStatePosts, IPost, IState} from "../interfaces";
 
 const initialState: IInitialStatePosts = {
     posts: [],

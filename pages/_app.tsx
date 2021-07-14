@@ -1,7 +1,7 @@
 import React from "react";
 import '../styles/globals.css';
 import {Provider} from 'react-redux';
-import store from './store/store';
+import store from '../store/store';
 import {MyAppProps} from '../interfaces';
 
 export default function MyApp({Component, pageProps}: MyAppProps) {
