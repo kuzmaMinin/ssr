@@ -41,29 +41,6 @@ export const {setIndex, addPostItem} = indexSlice.actions;
 
 export const selectValidLastPosts = (state: IState) => state.index.posts.filter(p => p.body && p.title).slice(-10);
 
-export const fetchIndex = createAsyncThunk('index/fetchPosts', async ({}, thunkAPI) => {
-    console.log('here')
-    try {
-        const posts = await axios
-            .get('https://simple-blog-api.crew.red/posts')
-            .then(res => res.data);
-
-        const result = await Promise.all(
-            posts.map(async (post: IPost) => {
-                return await axios
-                    .get(`https://simple-blog-api.crew.red/posts/${post.id}?_embed=comments`)
-                    .then(res => res.data);
-            })
-        ).then(res => res);
-        console.log(result, 'result')
-
-        thunkAPI.dispatch(setIndex(result));
-
-    } catch (e) {
-        console.log(e);
-    }
-});
-
 export const addPost = createAsyncThunk(
     'index/addPost',
     async (data: { title: string, body: string }, thunkAPI

@@ -1,7 +1,6 @@
 import React, {useEffect} from 'react';
 import {useDispatch, useSelector} from 'react-redux';
 import {IPost, IState} from '../interfaces';
-import {fetchPosts} from '../store/postsSlice';
 import Post from '../components/Post';
 import Link from 'next/link';
 import {Container, List} from '../styles/components';
@@ -29,7 +28,6 @@ const Posts = () => {
 }
 
 Posts.getInitialProps = wrapper.getInitialPageProps(store => async() => {
-
     console.log(' Page.getInitialProps uses the store to dispatch things');
     try {
         const posts = await axios
